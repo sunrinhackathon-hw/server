@@ -20,7 +20,8 @@ var UserSchema = new mongoose.Schema({
     pw: String,
     name: String,
     accessToken: String,
-    token: String
+    token: String,
+    money: String
 });
 Users = mongoose.model('users', UserSchema);
 LocData = mongoose.model('location', new mongoose.Schema({ 
@@ -43,4 +44,5 @@ app.listen(PORT, ()=>{
 
 require("./routes/auth")(app, Users);
 require("./routes/location")(app, LocData);
-
+require("./routes/self")(app, Users);
+require("./routes/money")(app, Users);
