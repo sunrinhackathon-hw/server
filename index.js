@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var xmlparser = require("express-xml-bodyparser")
 
 mongoose.connect("mongodb://localhost:/dudco", (err) => {
     if(err){
@@ -13,6 +14,7 @@ mongoose.connect("mongodb://localhost:/dudco", (err) => {
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(xmlparser())
 
 var UserSchema = new mongoose.Schema({
     _id: String,
@@ -41,12 +43,18 @@ app.get("/", (req, res)=>{
 
 app.get("/search/user", (req, res)=>{
     var userList = []
-    Users.find({"name" :req.query.name}, (err, users)=>{
+    Users.find({}, (err, users)=>{
         for(user of users){
-            userList.push(user)
+            if(user.name.includes(req.query.name)){
+                userList.push(user)    
+            }
         }
         res.send(200, userList)
     })
+})
+
+app.post("/lora/get", (req, res)=>{
+    console.log(req.body['m2m:cin'].con[0])
 })
 
 app.listen(PORT, ()=>{

@@ -22,9 +22,9 @@ function init(app, Users){
             }else{
                 var ncost = user.money*1 + cost*1
                 if(user.money){
-                    user.money = ncost
+                    user.money = ncost+""
                 }else{
-                    user.money = cost
+                    user.money = cost+""
                 }
                 user.save((err, nuser)=>{
                     if(err){
@@ -55,7 +55,7 @@ function init(app, Users){
                 if(ncost < 0){
                     res.send(400, {"message" : "돈이 부족합니다."})
                 }else{
-                    user.money = ncost
+                    user.money = ncost+""
 
                     user.save((err, nuser)=>{
                         if(err){
@@ -70,7 +70,7 @@ function init(app, Users){
                             }
                             if(tuser){
                                 var ncost = tuser.money*1 + cost*1
-                                tuser.money = ncost
+                                tuser.money = ncost+""
                                 tuser.save((err, ntuser)=>{
                                     res.send(200, {"user" : nuser , "tuser" : tuser})
                                 })
@@ -96,7 +96,7 @@ function init(app, Users){
                 if(ncost < 0){
                     res.send(400, {"message" : "돈이 부족합니다."})
                 }else{
-                    user.money = ncost
+                    user.money = ncost+""
                     user.history.push({
                         "title":"남영역점",
                         "date":new Date(),

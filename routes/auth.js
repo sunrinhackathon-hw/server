@@ -109,13 +109,14 @@ function init(app, Users){
             }else{
                 var newUser = new Users({
                     '_id' : randomString.generate({
-                        length: 15,
+                        length: 16,
                         charset: 'numeric'
                     }),
                     'name': name,
                     'pw': pw,
                     'email': email,
                     'token': randomString.generate(16),
+                    'money': "0"
                 });
                 
                 newUser.save((err) => {

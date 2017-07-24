@@ -12,7 +12,7 @@ function init(app, LocData){
             if(datas){
                 var dataList = []
                 datas.forEach((data)=>{
-                    if(calculateDistance(req.query.lat, req.query.lon, data.latitude, data.longitude) < 0.1){
+                    if(calculateDistance(req.query.lat, req.query.lon, data.latitude, data.longitude) < 0.500){
                         dataList.push(data)
                     }
                 })
