@@ -44,4 +44,14 @@ function init(app, Users){
             }
         })
     })
+
+    app.post("/self/gethistory", (req, res)=>{
+        var token = req.body.token
+    
+        Users.findOne({"token" : token}, (err, user)=>{
+            if(user){
+                res.send(user.history)            
+            }
+        })
+    })
 }

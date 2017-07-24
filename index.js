@@ -21,7 +21,8 @@ var UserSchema = new mongoose.Schema({
     name: String,
     accessToken: String,
     token: String,
-    money: String
+    money: String,
+    history: Array
 });
 Users = mongoose.model('users', UserSchema);
 LocData = mongoose.model('location', new mongoose.Schema({ 
@@ -37,6 +38,16 @@ var PORT = 6974;
 app.get("/", (req, res)=>{
     res.send("hello");
 });
+
+app.get("/search/user", (req, res)=>{
+    var userList = []
+    Users.find({"name" :req.query.name}, (err, users)=>{
+        for(user of users){
+            userList.push(user)
+        }
+        res.send(200, userList)
+    })
+})
 
 app.listen(PORT, ()=>{
     console.log("server running at " + PORT + " port");

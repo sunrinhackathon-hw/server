@@ -1,7 +1,7 @@
 module.exports = init;
 
 function init(app, LocData){
-    app.get("/loc/all/", (req, res)=>{
+    app.get("/map", (req, res)=>{
         console.log(req.query.lat + "  " + req.query.lon)
         
         LocData.find({}, (err, datas)=>{

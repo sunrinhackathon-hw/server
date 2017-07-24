@@ -81,4 +81,32 @@ function init(app, Users){
             }
         })
     })
+
+    app.post("/money/purchase", (req, res)=>{
+        var token = req.body.token
+        var cost = req.body.cost
+
+        Users.findOne({"token" : token}, (err, user)=>{
+            if(err){
+                console.log("money.js : user find err")
+                throw err
+            }
+            if(user){
+                var ncost = user.money*1 - cost*1
+                if(ncost < 0){
+                    res.send(400, {"message" : "돈이 부족합니다."})
+                }else{
+                    user.money = ncost
+                    user.history.push({
+                        "title":"남영역점",
+                        "date":new Date(),
+                        "cost":cost
+                    }) 
+                    user.save((err, user)=>{
+                        res.send(200, user)
+                    })
+                }
+            }
+        })
+    })
 }
