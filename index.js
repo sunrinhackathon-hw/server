@@ -23,6 +23,13 @@ var UserSchema = new mongoose.Schema({
     token: String
 });
 Users = mongoose.model('users', UserSchema);
+LocData = mongoose.model('location', new mongoose.Schema({ 
+    title : String,
+    address : String,
+    roadAddress : String,
+    longitude : String,
+    latitude : String
+}), 'locations')
 
 var PORT = 6974;
 
@@ -35,4 +42,5 @@ app.listen(PORT, ()=>{
 })
 
 require("./routes/auth")(app, Users);
+require("./routes/location")(app, LocData);
 
